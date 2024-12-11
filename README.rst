@@ -3,7 +3,7 @@ tickit
 
 |code_ci| |docs_ci| |coverage| |pypi_version| |license|
 
-An event-based multi-device simulation framework providing configuration and
+An event based multi-device simulation framework providing configuration and
 orchestration of complex multi-device simulations.
 
 ============== ==============================================================

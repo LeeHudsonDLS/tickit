@@ -1,0 +1,718 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Use Command Interpreter Wrappers &#8212; tickit 0.1.dev280+g27aba36 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=fdc04cef"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user/how-to/use-command-wrappers';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://dls-controls.github.io/tickit/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'actions_test023';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../../_static/tickit-logo.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Framework Summary" href="../explanations/framework-summary.html" />
+    <link rel="prev" title="Create a Device with an EPICS Interface" href="use-epics-adapter.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="actions_test023" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/tickit-logo.svg" class="logo__image only-light" alt=""/>
+    <img src="../../_static/tickit-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">tickit</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/dls-controls/tickit/releases">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/dls-controls/tickit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/tickit" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-cube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/dls-controls/tickit/releases">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/dls-controls/tickit" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/tickit" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-cube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/running-a-simulation.html">Running a Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/creating-a-simulation.html">Creating a Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/create-a-device.html">Creating a Device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/use-composed-adapter.html">Using an Adapter</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="use-epics-adapter.html">Create a Device with an EPICS Interface</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Use Command Interpreter Wrappers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Explanations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../explanations/framework-summary.html">Framework Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/components.html">Simulation Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/devices.html">Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/adapters.html">Adapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/wiring.html">Wiring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../explanations/glossary.html">Glossary</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Use Command Interpreter Wrappers</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="use-command-interpreter-wrappers">
+<h1>Use Command Interpreter Wrappers<a class="headerlink" href="#use-command-interpreter-wrappers" title="Link to this heading">#</a></h1>
+<p>In <a class="reference internal" href="../tutorials/use-composed-adapter.html#using-an-adapter"><span class="std std-ref">Using an Adapter</span></a> we saw how to use a composed adapter with the amplifier
+device so that it could receive commands of the form <code class="docutils literal notranslate"><span class="pre">A?</span></code> and <code class="docutils literal notranslate"><span class="pre">A=4.4</span></code> to get
+and set values to the device. These commands had to be sent exactly as specified
+and individually. However, when talking to a simulated device this may not be the
+case. Our simulated device may receive more complex messages and as a result our
+command interpreter needs to be able to handle them.</p>
+<p>This can be achieved by wrapping the <a class="reference internal" href="../reference/api.html#tickit.adapters.interpreters.command.command_interpreter.CommandInterpreter" title="tickit.adapters.interpreters.command.command_interpreter.CommandInterpreter"><code class="xref any py py-class docutils literal notranslate"><span class="pre">CommandInterpreter</span></code></a> in other helper interpreters.
+This allows us to do some pre/post processing on all commands before/after they
+are handled.</p>
+<p>There are three such wrappers:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#beheading-interpreter">Beheading Interpreter</a></p></li>
+<li><p><a class="reference internal" href="#splitting-interpreter">Splitting Interpreter</a></p></li>
+<li><p><a class="reference internal" href="#joining-interpreter">Joining Interpreter</a></p></li>
+</ol>
+<p>The use of such wrappers will be demonstrated with the example <a class="reference external" href="https://github.com/dls-controls/tickit/blob/master/examples/devices/shutter.py">Shutter</a> device.</p>
+<section id="beheading-interpreter">
+<h2>Beheading Interpreter<a class="headerlink" href="#beheading-interpreter" title="Link to this heading">#</a></h2>
+<p>Suppose that when communicating with a real shutter device, all messages are
+prepended with a fixed-length header that can be ignored. For example each message
+being prepended with a header of 2 bytes: <code class="docutils literal notranslate"><span class="pre">\x00\x02P?</span></code>, <code class="docutils literal notranslate"><span class="pre">\x00\x04T=1.0</span></code> etc.</p>
+<p>Our simulated device needs to handle messages of the same form.</p>
+<p>We could use regex pattern matching to avoid this header but in some cases this is
+not desirable. In such cases we can cutoff the first two characters of each message
+before passing it on to the <code class="docutils literal notranslate"><span class="pre">CommandInterpreter</span></code> by wrapping the <code class="docutils literal notranslate"><span class="pre">CommandInterpreter</span></code>
+with a <code class="docutils literal notranslate"><span class="pre">BeheadingInterpreter</span></code> in the adapter’s <code class="docutils literal notranslate"><span class="pre">__init__</span></code> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Awaitable</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">tickit.adapters.interpreters.command</span> <span class="kn">import</span> <span class="n">CommandInterpreter</span>
+<span class="kn">from</span> <span class="nn">tickit.adapters.interpreters.wrappers</span> <span class="kn">import</span> <span class="n">BeheadingInterpreter</span>
+<span class="kn">from</span> <span class="nn">tickit.adapters.servers.tcp</span> <span class="kn">import</span> <span class="n">TcpServer</span>
+<span class="kn">from</span> <span class="nn">tickit.core.adapter</span> <span class="kn">import</span> <span class="n">Adapter</span>
+<span class="k">class</span> <span class="nc">ShutterAdapter</span><span class="p">(</span><span class="n">Adapter</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Shutter</span><span class="p">,</span>
+        <span class="n">raise_interrupt</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]],</span>
+        <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25565</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">device</span><span class="p">,</span>
+            <span class="n">raise_interrupt</span><span class="p">,</span>
+            <span class="n">TcpServer</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">ByteFormat</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;%b</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)),</span>
+            <span class="n">BeheadingInterpreter</span><span class="p">(</span><span class="n">CommandInterpreter</span><span class="p">(),</span> <span class="n">header_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>With the rest of the adapter unchanged. The adapter will then correctly interpret
+commands in messages with the header attached:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="se">\x</span><span class="m">00</span><span class="se">\x</span>02P?
+<span class="m">2</span>.0
+</pre></div>
+</div>
+</section>
+<section id="splitting-interpreter">
+<h2>Splitting Interpreter<a class="headerlink" href="#splitting-interpreter" title="Link to this heading">#</a></h2>
+<p>Now suppose that we would like to be able to send multiple commands in a single
+message, separated by some delimiter. For example, though <code class="docutils literal notranslate"><span class="pre">P?</span></code> and <code class="docutils literal notranslate"><span class="pre">T?</span></code> are
+interpreted as commands by the <code class="docutils literal notranslate"><span class="pre">ShutterAdapter</span></code>, <code class="docutils literal notranslate"><span class="pre">P?</span> <span class="pre">T?</span></code> is not:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>P?
+<span class="m">0</span>.2
+T?
+<span class="m">0</span>.2
+P?<span class="w"> </span>T?
+Request<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>match<span class="w"> </span>any<span class="w"> </span>known<span class="w"> </span><span class="nb">command</span>
+</pre></div>
+</div>
+<p>This is the use-case of <code class="docutils literal notranslate"><span class="pre">SplittingInterpreter</span></code>. This splits a message into multiple
+sub-messages and then passes them on to another interpreter that it wraps. Wrapping
+the adapter’s <code class="docutils literal notranslate"><span class="pre">CommandInterprerter</span></code> as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SplittingInterpreter</span><span class="p">(</span><span class="n">CommandInterpreter</span><span class="p">(),</span> <span class="n">delimiter</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>with the rest of the adapter unchanged, allows for interpreting commands separated by
+a space:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>P?
+<span class="m">0</span>.2
+T?
+<span class="m">0</span>.2
+P?<span class="w"> </span>T?
+<span class="m">0</span>.2
+<span class="m">0</span>.2
+</pre></div>
+</div>
+<p>A wrapped adapter can be wrapped by another adapter wrapper. Combining the two above
+examples as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">BeheadingInterpreter</span><span class="p">(</span>
+    <span class="n">SplittingInterpreter</span><span class="p">(</span>
+        <span class="n">CommandInterpreter</span><span class="p">(),</span> <span class="n">delimiter</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot; &quot;</span>
+    <span class="p">),</span>
+    <span class="n">header_size</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>allows for the adapter to deal with messages with a fixed-length header containing
+multiple commands separated by a space:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="se">\x</span><span class="m">00</span><span class="se">\x</span>02P?
+<span class="m">0</span>.2
+<span class="se">\x</span><span class="m">00</span><span class="se">\x</span>05P?<span class="w"> </span>T?
+<span class="m">0</span>.2
+<span class="m">0</span>.2
+</pre></div>
+</div>
+<p>So far we have only seen interpreter wrappers altering the received message before
+passing it on to another interpreter. There are also wrappers that alter the response
+received from the wrapped interpreter before it is sent back.</p>
+</section>
+<section id="joining-interpreter">
+<h2>Joining Interpreter<a class="headerlink" href="#joining-interpreter" title="Link to this heading">#</a></h2>
+<p>Above, by wrapping the <code class="docutils literal notranslate"><span class="pre">ShutterAdapter</span></code>’s <code class="docutils literal notranslate"><span class="pre">CommandInterpreter</span></code> with a
+<code class="docutils literal notranslate"><span class="pre">SplittingInterpreter</span></code> we were able to execute multiple commands from a single
+message. Each executed command sent its own response, i.e. one message resulted in
+multiple responses. We may instead want each message to have its own response
+containing multiple command responses. This is the use-case for <code class="docutils literal notranslate"><span class="pre">JoiningInterpreter</span></code>.
+Wrapping the <code class="docutils literal notranslate"><span class="pre">SplittingInterpreter</span></code> with this will join each of the responses into a
+single message.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">JoiningInterpreter</span><span class="p">(</span>
+    <span class="n">BeheadingInterpreter</span><span class="p">(</span>
+        <span class="n">SplittingInterpreter</span><span class="p">(</span>
+            <span class="n">CommandInterpreter</span><span class="p">(),</span> <span class="n">delimiter</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot; &quot;</span>
+        <span class="p">),</span>
+        <span class="n">header_size</span><span class="o">=</span><span class="mi">2</span>
+    <span class="p">),</span>
+    <span class="n">response_delimiter</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot; &quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Results in</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>P?
+<span class="m">0</span>.2
+T?
+<span class="m">0</span>.2
+P?<span class="w"> </span>T?
+<span class="m">0</span>.2<span class="w"> </span><span class="m">0</span>.2
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="use-epics-adapter.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Create a Device with an EPICS Interface</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../explanations/framework-summary.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Framework Summary</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beheading-interpreter">Beheading Interpreter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-interpreter">Splitting Interpreter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-interpreter">Joining Interpreter</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/dls-controls/tickit/edit/actions_test023/docs/user/how-to/use-command-wrappers.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/user/how-to/use-command-wrappers.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
